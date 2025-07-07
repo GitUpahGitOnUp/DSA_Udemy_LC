@@ -8,7 +8,7 @@ public class LinkedList {
         // inner class, aka nested class
         class Node {
             int value;
-            Node next; // of type 'node', and it can point to a node
+            Node next; // of type 'node', it can point to a node
 
             // constructor for node creation
             Node(int value) {
@@ -46,8 +46,8 @@ public class LinkedList {
         }
 
         public void append(int value) {
-            // create new node, last item of list will point to it, and tail will point to new node
-            // if LL is empty, have head and tail point to the new node
+            // creates a new node, the last item of the list will point to it, and the tail will point to new node
+            // if the LL is empty, have head and tail point to the new node
             Node newNode = new Node(value);
             if (length == 0) {
                 head = newNode;
@@ -59,9 +59,9 @@ public class LinkedList {
             length++;
         }
 
-        // remove last item from LL, including an empty list
-        // remove last node that points to null, point tail to previous node, and now it points to null
-        // return removed node
+        // removes last item from LL, and includes handling an empty list
+        // removes last node that points to null, points tail to previous node, and now it points to null
+        // returns removed node
         public Node removeLast() {
             // return type node
             if (length == 0) {
@@ -70,7 +70,7 @@ public class LinkedList {
 
             Node temp = head;
             Node pre = head;
-            // start at head and iterate through pointers to arrive at penultimate pointer
+            // start at the head and iterate through pointers to arrive at the penultimate pointer
             while (temp.next != null) {
                 pre = temp;
                 temp = temp.next;
@@ -149,14 +149,14 @@ public class LinkedList {
                 prepend(value);
                 return true;
             }
-            // if index is the end of ll
+            // if index is the end of LL
             if (index == length) {
                 append(value);
                 return true;
             }
             // if index is 'inside' list
             Node newNode = new Node(value); // creates newNode for insertion
-            Node temp = get(index - 1); // temp var that is set to the index of the node in front of the desired index (if inserting @ index 3, temp is @ index 2)
+            Node temp = get(index - 1); // temp var that is set to the index of the node in front of the desired index (if inserting @ index 3, temp is pointing to index 2)
             newNode.next = temp.next; // the newNode's pointer will now point at the desired index (temp is 1 behind desired index)
             temp.next = newNode; // temp.next (1 behind desired index) is pointing to the newNode
             length ++;
@@ -175,7 +175,7 @@ public class LinkedList {
 
             prev.next = temp.next;
 
-            temp.next  = null; // removes from ll
+            temp.next  = null; // removes from LL
             length--;
             return temp;
         }
@@ -209,5 +209,96 @@ public class LinkedList {
             }
             return slow; //once fast and fast+1 are both pointing to null, the while loop is exited and the slow node is returned
         }
+
+        public boolean hasLoop() {
+            Node fast = head;
+            Node slow = head;
+
+            while (fast != null && fast.next!= null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if(fast == slow){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+    public Node findKthFromEnd(int k) {
+        Node slow = head;
+        Node fast = head;
+
+        for (int i = 0; i < k; i++) {
+            if (fast == null) {
+                return null;
+            }
+            fast = fast.next;
+        }
+
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow;
+    }
+
+    // method to remove duplicates in a LL using nested loops (using a set would be more efficient)
+    // LL for this problem does not have a tail
+
+    public void removeDuplicates() {
+        Node current = head;
+        while (current != null) {
+            Node runner = current;
+            while (runner.next != null) {
+                if (runner.next.value == current.value) {
+                    runner.next = runner.next.next;
+                    length -= 1;
+                } else {
+                    runner = runner.next;
+                }
+            }
+            current = current.next;
+        }
+    }
+    // method that converts binary to decimal w/o the use of length or counting
+    public int binaryToDecimal() {
+            Node current = head;
+            int total = 0;
+
+            while(current != null) { // iterates through LL until reaching the end
+                total = (total * 2) + current.value; // double the value of total to reflect its place value, then add 0 or 1 based on value in the node
+                current = current.next; // points current to the next node in LL
+            }
+            return total;
+    }
+
+    // method to partition nodes in a LL based on their relative value to be input by user
+    public void partitionList(int x) {
+            Node dum1 = new Node(0); // 2 new dummy nodes are given a value of 0 and will be used to 'sort'
+            Node dum2 = new Node(0); // ea. partition based on input value x
+            Node prev1 = dum1; // two pointer nodes previous 1&2 will point to their respective dummy nodes
+            Node prev2 = dum2;
+            Node current = head; // current will point to nodes as we traverse the LL
+
+            if(head == null) return; // handles empty LL case
+
+            while (current != null) {
+                if (current.value < x) {
+                    prev1.next = current; // prev1.next will append cur. node's val to list built by prev1
+                    prev1 = current;
+                }
+                else if (current.value >= x) {
+                    prev2.next = current; // prev2.next will append cur. node's val to list built by prev2
+                    prev2 = current;
+                }
+                current = current.next;
+            }
+            prev2.next = null; // sets next pointer of the last node to null
+            prev1.next = dum2.next; // sets p1 pointer to the node after d2, re-linking the OG LL
+            head = dum1.next; // sets head to d1's pointer, reestablishing the OG LL node as head
+
+    }
 }
 
