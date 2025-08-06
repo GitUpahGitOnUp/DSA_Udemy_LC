@@ -8,17 +8,18 @@ public class Main {
         LinkedList myLinkedList = new LinkedList(1);
         myLinkedList.append(2);
         myLinkedList.append(3);
-        myLinkedList.append(1);
         myLinkedList.append(4);
-        myLinkedList.append(2);
         myLinkedList.append(5);
+        //myLinkedList.append(2);
+        //myLinkedList.append(5);
 
 
-        myLinkedList.removeDuplicates();
 
         //System.out.println(myLinkedList.get(2).value + "\n");
-        //myLinkedList.printList();
-
+        myLinkedList.printList();
+        myLinkedList.reverseBetween(1, 3);
+        System.out.println("----");
+        myLinkedList.printList();
 
 
     }
