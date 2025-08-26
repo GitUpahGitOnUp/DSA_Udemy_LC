@@ -301,10 +301,10 @@ public class LinkedList {
 
     }
 
-    // method that reverses the nodes between to given values in a LL
+    // method that reverses the nodes between two given values in a LL
     public void reverseBetween(int m, int n) { // ints m and n will be used to determine range and pseudo indices of LL
             Node dum = new Node(0); // create dummy node so prev.next can point to the 0th 'indexed' node
-            dum.next = head; //
+            dum.next = head; // dummy node is pointing to head
             Node prev = dum; // previous node begins pointing to the dummy node & will iterate through LL and
                              //  track the node right before the segment to be reversed
 
@@ -314,20 +314,42 @@ public class LinkedList {
 
             if(head == null) return; // handles empty LL case
 
-            for (int i = 0; i < startIndex; i++) { // use loop to move prev forward startIndex # of steps
+            for (int i = 0; i < startIndex; i++) { // use loop to move prev forward startIndex - 1 # of steps
                 prev = prev.next;
             }
             Node cur = prev.next; // current node points to the node after previous & will be the 1st node reversed
 
                 for (int i = 0; i < (endIndex - startIndex); i++ ) { // determines the number of times nodes will be reversed
-                    Node toMove = cur.next; // node that must be moved is pointed to by current pode
+                    Node toMove = cur.next; // node that must be moved is pointed to by current node
                     cur.next = toMove.next; // current's pointer now points to node *after* toMove
-                    toMove.next = prev.next; // toMove's pointer is now pointing to previous' next pointer
-                    prev.next = toMove; // previous pointer is now pointing at the revered node toMove
+                    toMove.next = prev.next; // toMove's pointer is now pointing to previous's next pointer
+                    prev.next = toMove; // previous pointer is now pointing at the reversed node toMove
                 }
                 head = dum.next; // the head node was moved in the reversal process and must be reassigned to just after dummy node
 
 
+    }
+
+    public void swapPairs() {
+
+            if(head == null) return; // handles empty LL exception
+
+            Node dum = new Node(0); // create dummy node and set to head
+            dum.next = head;
+            Node prev = dum; // prev pointer initially starts at dummy node and will eventually progress through LL
+            Node first = head; // first pointer begins pointing at head
+
+            while (first != null && first.next != null) { // condit. handles even + odd num of nodes
+                Node second = first.next; // points to node after first
+                // steps to perform swap
+                prev.next = second;
+                first.next = second.next;
+                second.next = first;
+                // moves pointers
+                prev = first;
+                first = first.next;
+            }
+            head = dum.next;
     }
 }
 

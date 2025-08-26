@@ -17,7 +17,7 @@ public class Main {
 
         //System.out.println(myLinkedList.get(2).value + "\n");
         myLinkedList.printList();
-        myLinkedList.reverseBetween(1, 3);
+        myLinkedList.swapPairs();
         System.out.println("----");
         myLinkedList.printList();
 
