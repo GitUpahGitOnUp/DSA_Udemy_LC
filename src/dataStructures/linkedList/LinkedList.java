@@ -19,8 +19,8 @@ public class LinkedList {
         }
         // constructor for LL
         public LinkedList(int value) {
-            //  = 'new' keyword runs the constructor for the Node Class and creates node
-            // newNode is a var that is of type node which can point to a node
+            //  = 'new' keyword runs the constructor for the Node Class and creates the node
+            // newNode (of type Node) is a var that is of type node which can point to a node
             Node newNode = new Node(value);
             // head is pointing at the same thing as newNode
             head = newNode;
