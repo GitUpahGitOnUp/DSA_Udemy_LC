@@ -6,12 +6,14 @@ public class Main {
 
 
 
-        DoublyLinkedList myDLL = new DoublyLinkedList(0);
-        myDLL.append(1);
+        DoublyLinkedList myDLL = new DoublyLinkedList(1);
         myDLL.append(2);
+        myDLL.append(3);
+        myDLL.append(7);
+        myDLL.append(1);
 
         myDLL.printList();
-        myDLL.remove(1);
+        myDLL.isPalindrome();
         myDLL.printList();
 
     }

@@ -173,4 +173,18 @@ public class DoublyLinkedList {
         length--;
         return temp;
     }
+
+    public boolean isPalindrome() {
+        Node forward = head;
+        Node backward = tail;
+
+        if (length <= 1) return true; // handles cases for DDL with one node or less
+
+        for (int i = 0; i <= length/2; i++ ) {
+            if (forward.value != backward.value) return false;
+            forward = forward.next;
+            backward = backward.prev;
+        }
+        return true;
+    }
 }
