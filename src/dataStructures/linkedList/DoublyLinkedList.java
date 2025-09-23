@@ -187,4 +187,20 @@ public class DoublyLinkedList {
         }
         return true;
     }
+
+    public void reverse() {
+        Node curNode = head; // will be used to traverse the list
+        Node temp = null;
+
+        while (curNode != null) {
+            temp = curNode.prev; // temporarily stores the prev. node of curNode in temp, needed as the next step will overwrite curNode.prev
+            curNode.prev = curNode.next;  // the prev. node reference of curNode is set to next, beginning reversal process
+            curNode.next = temp; // next node reference of curNode is set to the store prev. node from temp, continuing reversal process
+            curNode = curNode.prev; // curNode pointer is moved to the next node in the OG list which after the swap is the OG prev. node
+        }
+        // after reversal, head and tail are swapped
+        temp = head; // OG head is stored in temp
+        head = tail; // head reference is updated to the OG tail
+        tail = temp; // tail reference is updated to the OG head
+    }
 }
